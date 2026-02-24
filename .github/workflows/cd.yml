@@ -1,0 +1,55 @@
+name: CD Pipeline
+
+on:
+  workflow_run:
+    workflows: ["CI Pipeline"]
+    types: [completed]
+    branches: [main]
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_PREFIX: ${{ github.repository_owner }}/collector
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup kubectl
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'
+
+      - name: Deploy to Kubernetes
+        run: |
+          # Apply namespace
+          kubectl apply -f k8s/namespace.yml
+
+          # Apply infrastructure
+          kubectl apply -f k8s/postgres/
+          kubectl apply -f k8s/keycloak/
+
+          # Wait for infrastructure
+          kubectl rollout status deployment/postgres -n collector --timeout=120s
+          kubectl rollout status deployment/keycloak -n collector --timeout=180s
+
+          # Apply services
+          kubectl apply -f k8s/user-service/
+          kubectl apply -f k8s/catalog-service/
+          kubectl apply -f k8s/order-service/
+          kubectl apply -f k8s/payment-service/
+          kubectl apply -f k8s/notification-service/
+          kubectl apply -f k8s/chat-service/
+          kubectl apply -f k8s/fraud-service/
+
+          # Apply frontend and gateway
+          kubectl apply -f k8s/frontend/
+          kubectl apply -f k8s/gateway/
+
+          # Apply ingress
+          kubectl apply -f k8s/ingress.yml
+
+          echo "✅ Deployment complete!"

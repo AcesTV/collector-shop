@@ -1,0 +1,26 @@
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
+import HomePage from './pages/HomePage';
+import CatalogPage from './pages/CatalogPage';
+import ProductDetailPage from './pages/ProductDetailPage';
+import DashboardPage from './pages/DashboardPage';
+import AdminPage from './pages/AdminPage';
+
+const App: React.FC = () => {
+    return (
+        <AuthProvider>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/catalog" element={<CatalogPage />} />
+                    <Route path="/catalog/:id" element={<ProductDetailPage />} />
+                    <Route path="/dashboard" element={<DashboardPage />} />
+                    <Route path="/admin" element={<AdminPage />} />
+                </Routes>
+            </BrowserRouter>
+        </AuthProvider>
+    );
+};
+
+export default App;
