@@ -44,11 +44,11 @@ const ProductDetailPage: React.FC = () => {
                         <span className="badge badge-success">{product.category?.name}</span>
                         <h1 style={{ fontSize: '2rem', margin: '12px 0' }}>{product.title}</h1>
                         <p className="price" style={{ fontSize: '2rem', color: 'var(--color-secondary)', fontWeight: 700 }}>
-                            {product.price.toFixed(2)} €
+                            {Number(product.price).toFixed(2)} €
                         </p>
                         {product.shippingCost > 0 && (
                             <p style={{ color: 'var(--color-text-muted)', marginTop: '4px' }}>
-                                + {product.shippingCost.toFixed(2)} € de livraison
+                                + {Number(product.shippingCost).toFixed(2)} € de livraison
                             </p>
                         )}
                         {product.condition && (

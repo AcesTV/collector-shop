@@ -26,6 +26,22 @@ export class ProductController {
         });
     }
 
+    // Seller: list own products (all statuses) — MUST be before :id
+    @Get('seller/mine')
+    @UseGuards(KeycloakGuard, RolesGuard)
+    @Roles('seller')
+    findMine(@Req() req: any) {
+        return this.productService.findAll({ sellerId: req.user.userId });
+    }
+
+    // Admin: list pending moderation — MUST be before :id
+    @Get('admin/pending')
+    @UseGuards(KeycloakGuard, RolesGuard)
+    @Roles('admin')
+    findPending() {
+        return this.productService.findPending();
+    }
+
     // Public: product detail
     @Get(':id')
     findOne(@Param('id') id: string) {
@@ -54,22 +70,6 @@ export class ProductController {
     @Roles('seller')
     delete(@Req() req: any, @Param('id') id: string) {
         return this.productService.delete(id, req.user.userId);
-    }
-
-    // Seller: list own products (all statuses)
-    @Get('seller/mine')
-    @UseGuards(KeycloakGuard, RolesGuard)
-    @Roles('seller')
-    findMine(@Req() req: any) {
-        return this.productService.findAll({ sellerId: req.user.userId });
-    }
-
-    // Admin: list pending moderation
-    @Get('admin/pending')
-    @UseGuards(KeycloakGuard, RolesGuard)
-    @Roles('admin')
-    findPending() {
-        return this.productService.findPending();
     }
 
     // Admin: approve/reject product

@@ -57,6 +57,11 @@ export const catalogService = {
     deleteProduct: (id: string) => api.delete(`/catalog/products/${id}`),
     getMyProducts: () => api.get('/catalog/products/seller/mine'),
 
+    // Moderation (admin)
+    getPendingProducts: () => api.get('/catalog/products/admin/pending'),
+    updateProductStatus: (id: string, status: 'approved' | 'rejected') =>
+        api.patch(`/catalog/products/${id}/status`, { status }),
+
     // Categories
     getCategories: () => api.get('/catalog/categories'),
     createCategory: (data: { name: string; description?: string; iconUrl?: string }) =>

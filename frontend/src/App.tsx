@@ -8,6 +8,7 @@ import DashboardPage from './pages/DashboardPage';
 import AdminPage from './pages/AdminPage';
 import PublishPage from './pages/PublishPage';
 import CategoriesPage from './pages/CategoriesPage';
+import ModerationPage from './pages/ModerationPage';
 
 const App: React.FC = () => {
     return (
@@ -21,6 +22,7 @@ const App: React.FC = () => {
                     <Route path="/publish" element={<PublishPage />} />
                     <Route path="/admin" element={<AdminPage />} />
                     <Route path="/admin/categories" element={<CategoriesPage />} />
+                    <Route path="/admin/moderation" element={<ModerationPage />} />
                 </Routes>
             </BrowserRouter>
         </AuthProvider>

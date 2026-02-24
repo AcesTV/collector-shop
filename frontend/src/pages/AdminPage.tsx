@@ -32,7 +32,7 @@ const AdminPage: React.FC = () => {
                         <p style={{ color: 'var(--color-text-muted)', margin: '8px 0' }}>
                             Approuver ou rejeter les articles en attente de validation.
                         </p>
-                        <button className="btn btn-primary">Voir les articles en attente</button>
+                        <Link to="/admin/moderation" className="btn btn-primary">Voir les articles en attente</Link>
                     </div>
 
                     <div className="card">

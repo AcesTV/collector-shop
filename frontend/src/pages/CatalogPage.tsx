@@ -87,11 +87,11 @@ const CatalogPage: React.FC = () => {
                                     )}
                                     <div className="product-card-body">
                                         <h3>{product.title}</h3>
-                                        <p className="price">{product.price.toFixed(2)} €</p>
+                                        <p className="price">{Number(product.price).toFixed(2)} €</p>
                                         <p className="category">{product.category?.name}</p>
                                         {product.shippingCost > 0 && (
                                             <p style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>
-                                                + {product.shippingCost.toFixed(2)} € de livraison
+                                                + {Number(product.shippingCost).toFixed(2)} € de livraison
                                             </p>
                                         )}
                                     </div>
