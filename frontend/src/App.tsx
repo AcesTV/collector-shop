@@ -6,6 +6,8 @@ import CatalogPage from './pages/CatalogPage';
 import ProductDetailPage from './pages/ProductDetailPage';
 import DashboardPage from './pages/DashboardPage';
 import AdminPage from './pages/AdminPage';
+import PublishPage from './pages/PublishPage';
+import CategoriesPage from './pages/CategoriesPage';
 
 const App: React.FC = () => {
     return (
@@ -16,7 +18,9 @@ const App: React.FC = () => {
                     <Route path="/catalog" element={<CatalogPage />} />
                     <Route path="/catalog/:id" element={<ProductDetailPage />} />
                     <Route path="/dashboard" element={<DashboardPage />} />
+                    <Route path="/publish" element={<PublishPage />} />
                     <Route path="/admin" element={<AdminPage />} />
+                    <Route path="/admin/categories" element={<CategoriesPage />} />
                 </Routes>
             </BrowserRouter>
         </AuthProvider>

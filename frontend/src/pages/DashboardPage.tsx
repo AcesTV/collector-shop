@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/common/Header';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -57,7 +58,7 @@ const DashboardPage: React.FC = () => {
                             <p style={{ color: 'var(--color-text-muted)', margin: '8px 0' }}>
                                 Mettez en vente un nouvel objet de collection.
                             </p>
-                            <button className="btn btn-primary">Publier</button>
+                            <Link to="/publish" className="btn btn-primary">Publier</Link>
                         </div>
                     )}
 

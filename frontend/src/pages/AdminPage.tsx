@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/common/Header';
 import { useAuth } from '../contexts/AuthContext';
 
@@ -39,7 +40,7 @@ const AdminPage: React.FC = () => {
                         <p style={{ color: 'var(--color-text-muted)', margin: '8px 0' }}>
                             Créer, modifier ou supprimer les catégories du site.
                         </p>
-                        <button className="btn btn-secondary">Gérer les catégories</button>
+                        <Link to="/admin/categories" className="btn btn-secondary">Gérer les catégories</Link>
                     </div>
 
                     <div className="card">

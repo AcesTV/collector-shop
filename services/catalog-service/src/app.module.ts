@@ -17,7 +17,7 @@ import { KeycloakStrategy } from './auth/keycloak.strategy';
             database: process.env.DB_NAME || 'collectorshop',
             schema: process.env.DB_SCHEMA || 'catalog_service',
             autoLoadEntities: true,
-            synchronize: process.env.NODE_ENV === 'development',
+            synchronize: true, // DEV only - creates tables automatically
         }),
         PassportModule.register({ defaultStrategy: 'keycloak' }),
         ProductModule,
