@@ -54,6 +54,33 @@ services:
     networks:
       - collector-network
 
+  # ========== SonarQube (Code Quality) ==========
+
+  sonarqube:
+    image: sonarqube:10-community
+    container_name: collector-sonarqube
+    environment:
+      SONAR_JDBC_URL: jdbc:postgresql://postgres:5432/sonarqube
+      SONAR_JDBC_USERNAME: ${POSTGRES_USER}
+      SONAR_JDBC_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - sonar-data:/opt/sonarqube/data
+      - sonar-extensions:/opt/sonarqube/extensions
+      - sonar-logs:/opt/sonarqube/logs
+    ports:
+      - "9000:9000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "curl -f http://localhost:9000/api/system/status || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 120s
+    networks:
+      - collector-network
+
   # ========== Gateway ==========
 
   gateway:
@@ -253,6 +280,12 @@ services:
 
 volumes:
   postgres-data:
+    driver: local
+  sonar-data:
+    driver: local
+  sonar-extensions:
+    driver: local
+  sonar-logs:
     driver: local
 
 networks:

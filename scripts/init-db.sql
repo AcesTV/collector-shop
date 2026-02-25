@@ -7,6 +7,10 @@
 SELECT 'CREATE DATABASE keycloak'
 WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'keycloak')\gexec
 
+-- Create the SonarQube database
+SELECT 'CREATE DATABASE sonarqube'
+WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'sonarqube')\gexec
+
 -- Create schemas for each microservice
 CREATE SCHEMA IF NOT EXISTS user_service;
 CREATE SCHEMA IF NOT EXISTS catalog_service;

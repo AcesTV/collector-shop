@@ -78,10 +78,39 @@ jobs:
         run: npm audit --audit-level=high || true
         working-directory: ${{ matrix.service }}
 
+  # ===== SonarQube Analysis =====
+  sonarqube:
+    runs-on: ubuntu-latest
+    needs: lint-and-test
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for accurate blame info
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install catalog-service dependencies
+        run: npm install
+        working-directory: services/catalog-service
+
+      - name: Generate test coverage
+        run: npx jest --coverage --coverageReporters=lcov
+        working-directory: services/catalog-service
+
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v4
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+
   # ===== Build Docker Images =====
   build:
     runs-on: ubuntu-latest
-    needs: [lint-and-test, security]
+    needs: [lint-and-test, security, sonarqube]
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     strategy:
