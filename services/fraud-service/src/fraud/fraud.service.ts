@@ -7,7 +7,7 @@ import { PriceAnomalyRule } from './rules/price-anomaly.rule';
 @Injectable()
 export class FraudService {
     constructor(
-        @InjectRepository(FraudAlert) private alertRepo: Repository<FraudAlert>,
+        @InjectRepository(FraudAlert) private readonly alertRepo: Repository<FraudAlert>,
         private readonly priceRule: PriceAnomalyRule,
     ) { }
 
@@ -54,7 +54,7 @@ export class FraudService {
     }
 
     async findAll(resolved?: boolean): Promise<FraudAlert[]> {
-        const where = resolved !== undefined ? { isResolved: resolved } : {};
+        const where = resolved === undefined ? {} : { isResolved: resolved };
         return this.alertRepo.find({ where, order: { createdAt: 'DESC' } });
     }
 

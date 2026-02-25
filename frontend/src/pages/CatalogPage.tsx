@@ -69,11 +69,15 @@ const CatalogPage: React.FC = () => {
                 </div>
 
                 {/* Grille produits */}
-                {loading ? (
+                {loading && (
                     <div className="loading">Chargement...</div>
-                ) : products.length === 0 ? (
+                )}
+
+                {!loading && products.length === 0 && (
                     <div className="loading">Aucun article trouvé</div>
-                ) : (
+                )}
+
+                {!loading && products.length > 0 && (
                     <div className="product-grid">
                         {products.map((product) => (
                             <Link key={product.id} to={`/catalog/${product.id}`} style={{ textDecoration: 'none' }}>

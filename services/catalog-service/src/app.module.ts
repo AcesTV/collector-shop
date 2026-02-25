@@ -11,7 +11,7 @@ import { KeycloakStrategy } from './auth/keycloak.strategy';
         TypeOrmModule.forRoot({
             type: 'postgres',
             host: process.env.DB_HOST || 'localhost',
-            port: parseInt(process.env.DB_PORT || '5432'),
+            port: Number.parseInt(process.env.DB_PORT || '5432'),
             username: process.env.DB_USER || 'collector',
             password: process.env.DB_PASSWORD || 'collector_secret_2025',
             database: process.env.DB_NAME || 'collectorshop',

@@ -2,5 +2,5 @@ projectKey=Collector-shop
 serverUrl=http://localhost:9000
 serverVersion=26.2.0.119303
 dashboardUrl=http://localhost:9000/dashboard?id=Collector-shop
-ceTaskId=ebbdae5b-a8f2-41bb-bbe2-8a128381f2f2
-ceTaskUrl=http://localhost:9000/api/ce/task?id=ebbdae5b-a8f2-41bb-bbe2-8a128381f2f2
+ceTaskId=569a424d-9e4a-41b9-a3f0-515a57044d47
+ceTaskUrl=http://localhost:9000/api/ce/task?id=569a424d-9e4a-41b9-a3f0-515a57044d47

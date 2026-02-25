@@ -222,7 +222,7 @@ describe('ProductService', () => {
             const result = await service.update('prod-1', 'seller-abc', { price: 120 });
 
             expect(result.priceHistory).toHaveLength(2);
-            expect(result.priceHistory![1].price).toBe(120);
+            expect(result.priceHistory[1].price).toBe(120);
         });
 
         it('should reject update with personal info in description', async () => {

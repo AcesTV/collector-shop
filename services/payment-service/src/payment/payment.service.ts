@@ -35,7 +35,7 @@ export class PaymentService {
         const transaction = await this.transactionRepo.findOne({ where: { id: transactionId } });
         if (!transaction) throw new NotFoundException('Transaction not found');
 
-        await this.stripeProvider.confirmPayment(transaction.stripePaymentIntentId!);
+        await this.stripeProvider.confirmPayment(transaction.stripePaymentIntentId);
         transaction.status = TransactionStatus.COMPLETED;
         return this.transactionRepo.save(transaction);
     }
@@ -44,7 +44,7 @@ export class PaymentService {
         const transaction = await this.transactionRepo.findOne({ where: { id: transactionId } });
         if (!transaction) throw new NotFoundException('Transaction not found');
 
-        await this.stripeProvider.refundPayment(transaction.stripePaymentIntentId!);
+        await this.stripeProvider.refundPayment(transaction.stripePaymentIntentId);
         transaction.status = TransactionStatus.REFUNDED;
         return this.transactionRepo.save(transaction);
     }

@@ -6,8 +6,9 @@ import * as jwksRsa from 'jwks-rsa';
 @Injectable()
 export class KeycloakStrategy extends PassportStrategy(Strategy, 'keycloak') {
     constructor() {
-        const keycloakUrl = process.env.KEYCLOAK_URL || 'http://keycloak:8080';
-        const realm = process.env.KEYCLOAK_REALM || 'collector';
+        const keycloakUrl = process.env.KEYCLOAK_URL || 'https://localhost:8080';
+        const realm = process.env.KEYCLOAK_REALM || 'collector-shop';
+        const clientID = process.env.KEYCLOAK_CLIENT_ID || 'order-service';
 
         super({
             jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),

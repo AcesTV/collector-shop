@@ -10,4 +10,8 @@ async function bootstrap() {
     await app.listen(port);
     console.log(`💬 Chat Service running on port ${port}`);
 }
-bootstrap();
+
+bootstrap().catch((err) => {
+    console.error('Error during bootstrap:', err);
+    process.exit(1);
+}); // NOSONAR

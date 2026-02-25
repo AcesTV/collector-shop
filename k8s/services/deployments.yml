@@ -13,10 +13,19 @@ spec:
       labels:
         app: catalog-service
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: catalog-service
-          image: collector/catalog-service:latest
+          image: collector/catalog-service:1.0.0
           ports: [{containerPort: 3002}]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+              ephemeral-storage: 256Mi
+            limits:
+              memory: 256Mi
+              ephemeral-storage: 512Mi
           env:
             - {name: PORT, value: "3002"}
             - {name: DB_SCHEMA, value: catalog_service}
@@ -46,10 +55,19 @@ spec:
       labels:
         app: order-service
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: order-service
-          image: collector/order-service:latest
+          image: collector/order-service:1.0.0
           ports: [{containerPort: 3003}]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+              ephemeral-storage: 256Mi
+            limits:
+              memory: 256Mi
+              ephemeral-storage: 512Mi
           env:
             - {name: PORT, value: "3003"}
             - {name: DB_SCHEMA, value: order_service}
@@ -78,10 +96,19 @@ spec:
       labels:
         app: payment-service
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: payment-service
-          image: collector/payment-service:latest
+          image: collector/payment-service:1.0.0
           ports: [{containerPort: 3004}]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+              ephemeral-storage: 256Mi
+            limits:
+              memory: 256Mi
+              ephemeral-storage: 512Mi
           env:
             - {name: PORT, value: "3004"}
             - {name: DB_SCHEMA, value: payment_service}
@@ -110,10 +137,19 @@ spec:
       labels:
         app: notification-service
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: notification-service
-          image: collector/notification-service:latest
+          image: collector/notification-service:1.0.0
           ports: [{containerPort: 3005}]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+              ephemeral-storage: 256Mi
+            limits:
+              memory: 256Mi
+              ephemeral-storage: 512Mi
           env:
             - {name: PORT, value: "3005"}
             - {name: DB_SCHEMA, value: notification_service}
@@ -142,10 +178,19 @@ spec:
       labels:
         app: chat-service
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: chat-service
-          image: collector/chat-service:latest
+          image: collector/chat-service:1.0.0
           ports: [{containerPort: 3006}]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+              ephemeral-storage: 256Mi
+            limits:
+              memory: 256Mi
+              ephemeral-storage: 512Mi
           env:
             - {name: PORT, value: "3006"}
             - {name: DB_SCHEMA, value: chat_service}
@@ -173,10 +218,19 @@ spec:
       labels:
         app: fraud-service
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: fraud-service
-          image: collector/fraud-service:latest
+          image: collector/fraud-service:1.0.0
           ports: [{containerPort: 3007}]
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+              ephemeral-storage: 256Mi
+            limits:
+              memory: 256Mi
+              ephemeral-storage: 512Mi
           env:
             - {name: PORT, value: "3007"}
             - {name: DB_SCHEMA, value: fraud_service}

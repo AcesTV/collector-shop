@@ -4,7 +4,7 @@ import { ROLES_KEY } from './roles.decorator';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-    constructor(private reflector: Reflector) { }
+    constructor(private readonly reflector: Reflector) { }
 
     canActivate(context: ExecutionContext): boolean {
         const requiredRoles = this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [
@@ -17,7 +17,7 @@ export class RolesGuard implements CanActivate {
         }
 
         const { user } = context.switchToHttp().getRequest();
-        if (!user || !user.roles) {
+        if (!user?.roles) {
             throw new ForbiddenException('No roles found in token');
         }
 

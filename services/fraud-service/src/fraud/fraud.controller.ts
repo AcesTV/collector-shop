@@ -19,7 +19,7 @@ export class FraudController {
     @Get('alerts')
     @UseGuards(KeycloakGuard)
     findAlerts(@Query('resolved') resolved?: string) {
-        const isResolved = resolved !== undefined ? resolved === 'true' : undefined;
+        const isResolved = resolved === undefined ? undefined : resolved === 'true';
         return this.fraudService.findAll(isResolved);
     }
 

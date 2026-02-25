@@ -16,7 +16,7 @@ api.interceptors.request.use(
         }
         return config;
     },
-    (error) => Promise.reject(error),
+    (error) => { throw error; },
 );
 
 // Response interceptor: handle 401 and refresh token
@@ -34,11 +34,11 @@ api.interceptors.response.use(
                 return api(originalRequest);
             } catch (refreshError) {
                 keycloak.login();
-                return Promise.reject(refreshError);
+                throw refreshError;
             }
         }
 
-        return Promise.reject(error);
+        throw error;
     },
 );
 

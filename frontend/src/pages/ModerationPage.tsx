@@ -79,7 +79,7 @@ const ModerationPage: React.FC = () => {
                     <div>
                         <h1 style={{ fontSize: '1.8rem', marginBottom: 4 }}>📋 Modération des articles</h1>
                         <p style={{ color: 'var(--color-text-muted)' }}>
-                            {products.length} article{products.length !== 1 ? 's' : ''} en attente de validation
+                            {products.length} article{products.length === 1 ? '' : 's'} en attente de validation
                         </p>
                     </div>
                     <button className="btn btn-secondary" onClick={() => navigate('/admin')}>← Retour</button>
@@ -98,9 +98,11 @@ const ModerationPage: React.FC = () => {
                     </div>
                 )}
 
-                {loading ? (
+                {loading && (
                     <div className="loading">Chargement des articles...</div>
-                ) : products.length === 0 ? (
+                )}
+
+                {!loading && products.length === 0 && (
                     <div className="card" style={{ textAlign: 'center', padding: 48 }}>
                         <div style={{ fontSize: '2.5rem', marginBottom: 16 }}>✅</div>
                         <h3 style={{ marginBottom: 8 }}>Aucun article en attente</h3>
@@ -108,7 +110,9 @@ const ModerationPage: React.FC = () => {
                             Tous les articles ont été traités. Bravo !
                         </p>
                     </div>
-                ) : (
+                )}
+
+                {!loading && products.length > 0 && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
                         {products.map(product => (
                             <div key={product.id} className="card" style={{ padding: '20px 24px' }}>
@@ -141,8 +145,9 @@ const ModerationPage: React.FC = () => {
                                 </div>
 
                                 {/* Expandable description */}
-                                <div
-                                    style={{ cursor: 'pointer', marginBottom: 12 }}
+                                <button
+                                    type="button"
+                                    style={{ cursor: 'pointer', marginBottom: 12, background: 'none', border: 'none', padding: 0, width: '100%', textAlign: 'left', color: 'inherit', font: 'inherit' }}
                                     onClick={() => setExpandedId(expandedId === product.id ? null : product.id)}
                                 >
                                     <p style={{
@@ -158,16 +163,16 @@ const ModerationPage: React.FC = () => {
                                     <span style={{ fontSize: '0.8rem', color: 'var(--color-primary)' }}>
                                         {expandedId === product.id ? '▲ Réduire' : '▼ Voir la description complète'}
                                     </span>
-                                </div>
+                                </button>
 
                                 {/* Images */}
                                 {product.imageUrls && product.imageUrls.length > 0 && expandedId === product.id && (
                                     <div style={{ display: 'flex', gap: 8, marginBottom: 12, flexWrap: 'wrap' }}>
                                         {product.imageUrls.map((url, i) => (
                                             <img
-                                                key={i}
+                                                key={url}
                                                 src={url}
-                                                alt={`Image ${i + 1}`}
+                                                alt={`${product.title} - ${String(i + 1)}`}
                                                 style={{
                                                     width: 80, height: 80, objectFit: 'cover',
                                                     borderRadius: 8, border: '1px solid var(--color-border)',

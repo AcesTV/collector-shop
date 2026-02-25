@@ -104,7 +104,7 @@ const CategoriesPage: React.FC = () => {
                     <div>
                         <h1 style={{ fontSize: '1.8rem', marginBottom: 4 }}>📂 Gestion des catégories</h1>
                         <p style={{ color: 'var(--color-text-muted)' }}>
-                            {categories.length} catégorie{categories.length !== 1 ? 's' : ''}
+                            {categories.length} catégorie{categories.length === 1 ? '' : 's'}
                         </p>
                     </div>
                     <div style={{ display: 'flex', gap: 8 }}>
@@ -135,8 +135,9 @@ const CategoriesPage: React.FC = () => {
                         </h3>
                         <form onSubmit={handleSubmit}>
                             <div className="form-group">
-                                <label>Nom *</label>
+                                <label htmlFor="cat-name">Nom *</label>
                                 <input
+                                    id="cat-name"
                                     type="text"
                                     value={name}
                                     onChange={e => setName(e.target.value)}
@@ -145,8 +146,9 @@ const CategoriesPage: React.FC = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>Description</label>
+                                <label htmlFor="cat-description">Description</label>
                                 <textarea
+                                    id="cat-description"
                                     value={description}
                                     onChange={e => setDescription(e.target.value)}
                                     placeholder="Description de la catégorie..."
@@ -155,8 +157,9 @@ const CategoriesPage: React.FC = () => {
                                 />
                             </div>
                             <div className="form-group">
-                                <label>URL de l'icône</label>
+                                <label htmlFor="cat-icon">URL de l'icône</label>
                                 <input
+                                    id="cat-icon"
                                     type="url"
                                     value={iconUrl}
                                     onChange={e => setIconUrl(e.target.value)}
@@ -173,9 +176,11 @@ const CategoriesPage: React.FC = () => {
                     </div>
                 )}
 
-                {loading ? (
+                {loading && (
                     <div className="loading">Chargement des catégories...</div>
-                ) : categories.length === 0 ? (
+                )}
+
+                {!loading && categories.length === 0 && (
                     <div className="card" style={{ textAlign: 'center', padding: 48 }}>
                         <div style={{ fontSize: '2.5rem', marginBottom: 16 }}>📂</div>
                         <h3 style={{ marginBottom: 8 }}>Aucune catégorie</h3>
@@ -183,7 +188,9 @@ const CategoriesPage: React.FC = () => {
                             Crée ta première catégorie pour permettre aux vendeurs de publier des articles.
                         </p>
                     </div>
-                ) : (
+                )}
+
+                {!loading && categories.length > 0 && (
                     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
                         {categories.map(cat => (
                             <div key={cat.id} className="card" style={{

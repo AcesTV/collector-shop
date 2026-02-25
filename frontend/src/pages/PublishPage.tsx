@@ -114,7 +114,13 @@ const PublishPage: React.FC = () => {
             setTimeout(() => navigate('/dashboard'), 2000);
         } catch (err: any) {
             const msg = err.response?.data?.message;
-            setError(typeof msg === 'string' ? msg : Array.isArray(msg) ? msg.join(', ') : 'Erreur lors de la publication');
+            if (typeof msg === 'string') {
+                setError(msg);
+            } else if (Array.isArray(msg)) {
+                setError(msg.join(', '));
+            } else {
+                setError('Erreur lors de la publication');
+            }
         } finally {
             setLoading(false);
         }
@@ -167,8 +173,9 @@ const PublishPage: React.FC = () => {
                         <h3 style={{ marginBottom: 16, color: 'var(--color-primary)' }}>📋 Informations générales</h3>
 
                         <div className="form-group">
-                            <label>Titre de l'article *</label>
+                            <label htmlFor="publish-title">Titre de l'article *</label>
                             <input
+                                id="publish-title"
                                 type="text"
                                 value={title}
                                 onChange={e => setTitle(e.target.value)}
@@ -179,8 +186,9 @@ const PublishPage: React.FC = () => {
                         </div>
 
                         <div className="form-group">
-                            <label>Description *</label>
+                            <label htmlFor="publish-description">Description *</label>
                             <textarea
+                                id="publish-description"
                                 value={description}
                                 onChange={e => setDescription(e.target.value)}
                                 placeholder="Décris ton article en détail : état, année, authenticité..."
@@ -195,8 +203,9 @@ const PublishPage: React.FC = () => {
                         </div>
 
                         <div className="form-group">
-                            <label>Catégorie *</label>
+                            <label htmlFor="publish-category">Catégorie *</label>
                             <select
+                                id="publish-category"
                                 value={categoryId}
                                 onChange={e => setCategoryId(e.target.value)}
                                 required
@@ -209,8 +218,9 @@ const PublishPage: React.FC = () => {
                         </div>
 
                         <div className="form-group">
-                            <label>État de l'article *</label>
+                            <label htmlFor="publish-condition">État de l'article *</label>
                             <select
+                                id="publish-condition"
                                 value={condition}
                                 onChange={e => setCondition(e.target.value)}
                                 required
@@ -228,8 +238,9 @@ const PublishPage: React.FC = () => {
 
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
                             <div className="form-group">
-                                <label>Prix de vente (€) *</label>
+                                <label htmlFor="publish-price">Prix de vente (€) *</label>
                                 <input
+                                    id="publish-price"
                                     type="number"
                                     value={price}
                                     onChange={e => setPrice(e.target.value ? Number(e.target.value) : '')}
@@ -241,8 +252,9 @@ const PublishPage: React.FC = () => {
                             </div>
 
                             <div className="form-group">
-                                <label>Frais de livraison (€)</label>
+                                <label htmlFor="publish-shipping">Frais de livraison (€)</label>
                                 <input
+                                    id="publish-shipping"
                                     type="number"
                                     value={shippingCost}
                                     onChange={e => setShippingCost(e.target.value ? Number(e.target.value) : '')}
@@ -288,7 +300,7 @@ const PublishPage: React.FC = () => {
                         </small>
 
                         {imageUrls.map((url, index) => (
-                            <div key={index} style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
+                            <div key={`img-${String(index)}-${url.slice(0, 10)}`} style={{ display: 'flex', gap: 8, marginBottom: 8 }}>
                                 <div className="form-group" style={{ flex: 1, marginBottom: 0 }}>
                                     <input
                                         type="url"

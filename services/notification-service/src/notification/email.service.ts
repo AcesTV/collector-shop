@@ -4,13 +4,13 @@ import * as nodemailer from 'nodemailer';
 @Injectable()
 export class EmailService {
     private readonly logger = new Logger(EmailService.name);
-    private transporter: nodemailer.Transporter;
+    private readonly transporter: nodemailer.Transporter;
 
     constructor() {
         // Utilise Ethereal pour le POC (emails de test)
         this.transporter = nodemailer.createTransport({
             host: process.env.SMTP_HOST || 'smtp.ethereal.email',
-            port: parseInt(process.env.SMTP_PORT || '587'),
+            port: Number.parseInt(process.env.SMTP_PORT || '587'),
             auth: {
                 user: process.env.SMTP_USER || 'test@ethereal.email',
                 pass: process.env.SMTP_PASS || 'test',

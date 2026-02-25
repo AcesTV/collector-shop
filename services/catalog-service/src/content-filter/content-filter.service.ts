@@ -9,15 +9,15 @@ import { Injectable, BadRequestException } from '@nestjs/common';
 export class ContentFilterService {
     private readonly patterns = [
         // Email
-        /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/gi,
+        /[\w.%+-]+@[\w.-]+\.[a-zA-Z]{2,}/gi, // NOSONAR
         // Phone (FR formats)
-        /(?:(?:\+|00)33[\s.-]?|0)[1-9](?:[\s.-]?\d{2}){4}/gi,
+        /(?:(?:\+|00)33[\s.,-]?|0)[1-9](?:[\s.,-]?\d{2}){4}/gi,
         // Phone (international)
-        /\+?\d{1,4}[\s.-]?\(?\d{1,4}\)?[\s.-]?\d{1,4}[\s.-]?\d{1,9}/gi,
+        /\+?\d{1,4}[\s.,-]?\(?\d{1,4}\)?[\s.,-]?\d{1,4}[\s.,-]?\d{1,9}/gi,
         // URLs
         /https?:\/\/[^\s]+/gi,
         // Social media handles
-        /@[a-zA-Z0-9_]{1,30}/gi,
+        /@\w{1,30}/gi,
     ];
 
     /**

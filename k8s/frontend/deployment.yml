@@ -13,11 +13,20 @@ spec:
       labels:
         app: frontend
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: frontend
-          image: collector/frontend:latest
+          image: collector/frontend:1.0.0
           ports:
             - containerPort: 3000
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+              ephemeral-storage: 256Mi
+            limits:
+              memory: 256Mi
+              ephemeral-storage: 512Mi
 ---
 apiVersion: v1
 kind: Service
@@ -46,11 +55,20 @@ spec:
       labels:
         app: gateway
     spec:
+      automountServiceAccountToken: false
       containers:
         - name: gateway
-          image: collector/gateway:latest
+          image: collector/gateway:1.0.0
           ports:
             - containerPort: 80
+          resources:
+            requests:
+              cpu: 100m
+              memory: 128Mi
+              ephemeral-storage: 256Mi
+            limits:
+              memory: 256Mi
+              ephemeral-storage: 512Mi
 ---
 apiVersion: v1
 kind: Service

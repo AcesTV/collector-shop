@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useEffect, useState, useMemo, ReactNode } from 'react';
 import keycloak from '../config/keycloak';
 
 interface AuthUser {
@@ -31,7 +31,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         keycloak
             .init({
                 onLoad: 'check-sso',
-                silentCheckSsoRedirectUri: window.location.origin + '/silent-check-sso.html',
+                silentCheckSsoRedirectUri: globalThis.location.origin + '/silent-check-sso.html',
                 pkceMethod: 'S256',
             })
             .then((authenticated) => {
@@ -65,22 +65,24 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }, []);
 
     const login = () => keycloak.login();
-    const logout = () => keycloak.logout({ redirectUri: window.location.origin });
+    const logout = () => keycloak.logout({ redirectUri: globalThis.location.origin });
     const register = () => keycloak.register();
     const hasRole = (role: string) => user?.roles.includes(role) || false;
 
+    const contextValue = useMemo(() => ({
+        isAuthenticated,
+        isLoading,
+        user,
+        token: keycloak.token,
+        login,
+        logout,
+        register,
+        hasRole,
+    }), [isAuthenticated, isLoading, user]);
+
     return (
         <AuthContext.Provider
-            value={{
-                isAuthenticated,
-                isLoading,
-                user,
-                token: keycloak.token,
-                login,
-                logout,
-                register,
-                hasRole,
-            }}
+            value={contextValue}
         >
             {children}
         </AuthContext.Provider>

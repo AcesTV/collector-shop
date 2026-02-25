@@ -7,8 +7,8 @@ import { Conversation } from './conversation.entity';
 @Injectable()
 export class ChatService {
     constructor(
-        @InjectRepository(Message) private messageRepo: Repository<Message>,
-        @InjectRepository(Conversation) private convRepo: Repository<Conversation>,
+        @InjectRepository(Message) private readonly messageRepo: Repository<Message>,
+        @InjectRepository(Conversation) private readonly convRepo: Repository<Conversation>,
     ) { }
 
     async getOrCreateConversation(buyerId: string, sellerId: string, productId?: string): Promise<Conversation> {

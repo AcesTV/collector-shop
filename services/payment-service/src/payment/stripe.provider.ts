@@ -1,4 +1,5 @@
 import { Injectable, Logger } from '@nestjs/common';
+import { randomUUID } from 'crypto';
 
 /**
  * Stripe Payment Provider
@@ -15,7 +16,7 @@ export class StripeProvider {
     }> {
         // Simulation Stripe pour le POC
         this.logger.log(`💳 Creating payment intent: ${amount} ${currency}`);
-        const paymentIntentId = `pi_simulated_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        const paymentIntentId = `pi_simulated_${Date.now()}_${randomUUID().split('-')[0]}`;
 
         return {
             paymentIntentId,
