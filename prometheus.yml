@@ -1,0 +1,36 @@
+global:
+  scrape_interval: 15s # By default, scrape targets every 15 seconds.
+  evaluation_interval: 15s
+
+scrape_configs:
+  - job_name: 'collector-gateway'
+    static_configs:
+      - targets: ['gateway:3000']
+
+  - job_name: 'user-service'
+    static_configs:
+      - targets: ['user-service:3001']
+
+  - job_name: 'catalog-service'
+    static_configs:
+      - targets: ['catalog-service:3002']
+
+  - job_name: 'order-service'
+    static_configs:
+      - targets: ['order-service:3003']
+
+  - job_name: 'payment-service'
+    static_configs:
+      - targets: ['payment-service:3004']
+
+  - job_name: 'notification-service'
+    static_configs:
+      - targets: ['notification-service:3005']
+
+  - job_name: 'chat-service'
+    static_configs:
+      - targets: ['chat-service:3006']
+
+  - job_name: 'fraud-service'
+    static_configs:
+      - targets: ['fraud-service:3007']

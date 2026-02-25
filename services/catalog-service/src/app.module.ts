@@ -1,13 +1,21 @@
-import { Module } from '@nestjs/common';
+import { Module, MiddlewareConsumer, NestModule } from '@nestjs/common';
+import { PrometheusModule, makeHistogramProvider, makeCounterProvider } from '@willsoto/nestjs-prometheus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { ProductModule } from './product/product.module';
 import { CategoryModule } from './category/category.module';
 import { ShopModule } from './shop/shop.module';
 import { KeycloakStrategy } from './auth/keycloak.strategy';
+import { MetricsMiddleware } from './metrics.middleware';
 
 @Module({
     imports: [
+        PrometheusModule.register({
+            path: '/metrics',
+            defaultMetrics: {
+                enabled: true,
+            },
+        }),
         TypeOrmModule.forRoot({
             type: 'postgres',
             host: process.env.DB_HOST || 'localhost',
@@ -24,6 +32,23 @@ import { KeycloakStrategy } from './auth/keycloak.strategy';
         CategoryModule,
         ShopModule,
     ],
-    providers: [KeycloakStrategy],
+    providers: [
+        KeycloakStrategy,
+        makeHistogramProvider({
+            name: 'http_request_duration_seconds',
+            help: 'Duration of HTTP requests in seconds',
+            labelNames: ['method', 'route', 'status_code'],
+            buckets: [0.01, 0.05, 0.1, 0.5, 1, 3],
+        }),
+        makeCounterProvider({
+            name: 'http_requests_total',
+            help: 'Total number of HTTP requests',
+            labelNames: ['method', 'route', 'status_code'],
+        }),
+    ],
 })
-export class AppModule { }
+export class AppModule implements NestModule {
+    configure(consumer: MiddlewareConsumer) {
+        consumer.apply(MetricsMiddleware).forRoutes('*');
+    }
+}

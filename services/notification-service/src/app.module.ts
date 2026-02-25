@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { PrometheusModule } from '@willsoto/nestjs-prometheus';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PassportModule } from '@nestjs/passport';
 import { NotificationModule } from './notification/notification.module';
@@ -6,6 +7,7 @@ import { KeycloakStrategy } from './auth/keycloak.strategy';
 
 @Module({
     imports: [
+        PrometheusModule.register(),
         TypeOrmModule.forRoot({
             type: 'postgres',
             host: process.env.DB_HOST || 'localhost',
