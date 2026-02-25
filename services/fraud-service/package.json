@@ -9,7 +9,8 @@
         "start:dev": "nest start --watch",
         "start:prod": "node dist/main",
         "lint": "eslint \"{src,test}/**/*.ts\" --fix",
-        "test": "jest"
+        "test": "jest",
+        "test:cov": "jest --coverage"
     },
     "dependencies": {
         "@nestjs/common": "^10.3.0",
@@ -50,6 +51,10 @@
         "transform": {
             "^.+\\.(t|j)s$": "ts-jest"
         },
+        "collectCoverageFrom": [
+            "**/*.(t|j)s"
+        ],
+        "coverageDirectory": "../coverage",
         "testEnvironment": "node"
     }
 }
