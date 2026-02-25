@@ -57,7 +57,7 @@ services:
   # ========== SonarQube (Code Quality) ==========
 
   sonarqube:
-    image: sonarqube:10-community
+    image: sonarqube:26.2.0.119303-community
     container_name: collector-sonarqube
     environment:
       SONAR_JDBC_URL: jdbc:postgresql://postgres:5432/sonarqube
