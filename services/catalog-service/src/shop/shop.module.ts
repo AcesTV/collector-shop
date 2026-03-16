@@ -5,9 +5,9 @@ import { ShopService } from './shop.service';
 import { Shop } from './shop.entity';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Shop])],
-    controllers: [ShopController],
-    providers: [ShopService],
-    exports: [ShopService],
+  imports: [TypeOrmModule.forFeature([Shop])],
+  controllers: [ShopController],
+  providers: [ShopService],
+  exports: [ShopService],
 })
-export class ShopModule { }
+export class ShopModule {}

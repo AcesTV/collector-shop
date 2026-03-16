@@ -6,9 +6,9 @@ import { Product } from './product.entity';
 import { ContentFilterService } from '../content-filter/content-filter.service';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Product])],
-    controllers: [ProductController],
-    providers: [ProductService, ContentFilterService],
-    exports: [ProductService],
+  imports: [TypeOrmModule.forFeature([Product])],
+  controllers: [ProductController],
+  providers: [ProductService, ContentFilterService],
+  exports: [ProductService],
 })
-export class ProductModule { }
+export class ProductModule {}

@@ -3,15 +3,22 @@ import { ValidationPipe } from '@nestjs/common';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
-    const app = await NestFactory.create(AppModule);
-    app.enableCors({ origin: ['http://localhost:3000', 'http://localhost:5173', 'http://localhost'], credentials: true });
-    app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
-    const port = process.env.PORT || 3003;
-    await app.listen(port);
-    console.log(`🛒 Order Service running on port ${port}`);
+  const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:5173',
+      'http://localhost',
+    ],
+    credentials: true,
+  });
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  const port = process.env.PORT || 3003;
+  await app.listen(port);
+  console.log(`🛒 Order Service running on port ${port}`);
 }
 
 bootstrap().catch((err) => {
-    console.error('Error during bootstrap:', err);
-    process.exit(1);
+  console.error('Error during bootstrap:', err);
+  process.exit(1);
 }); // NOSONAR

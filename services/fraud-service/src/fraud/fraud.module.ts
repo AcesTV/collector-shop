@@ -6,8 +6,8 @@ import { FraudAlert } from './fraud-alert.entity';
 import { PriceAnomalyRule } from './rules/price-anomaly.rule';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([FraudAlert])],
-    controllers: [FraudController],
-    providers: [FraudService, PriceAnomalyRule],
+  imports: [TypeOrmModule.forFeature([FraudAlert])],
+  controllers: [FraudController],
+  providers: [FraudService, PriceAnomalyRule],
 })
-export class FraudModule { }
+export class FraudModule {}

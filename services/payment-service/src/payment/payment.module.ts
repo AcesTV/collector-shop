@@ -6,8 +6,8 @@ import { Transaction } from './transaction.entity';
 import { StripeProvider } from './stripe.provider';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([Transaction])],
-    controllers: [PaymentController],
-    providers: [PaymentService, StripeProvider],
+  imports: [TypeOrmModule.forFeature([Transaction])],
+  controllers: [PaymentController],
+  providers: [PaymentService, StripeProvider],
 })
-export class PaymentModule { }
+export class PaymentModule {}

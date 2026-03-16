@@ -11,22 +11,22 @@ import CategoriesPage from './pages/CategoriesPage';
 import ModerationPage from './pages/ModerationPage';
 
 const App: React.FC = () => {
-    return (
-        <AuthProvider>
-            <BrowserRouter>
-                <Routes>
-                    <Route path="/" element={<HomePage />} />
-                    <Route path="/catalog" element={<CatalogPage />} />
-                    <Route path="/catalog/:id" element={<ProductDetailPage />} />
-                    <Route path="/dashboard" element={<DashboardPage />} />
-                    <Route path="/publish" element={<PublishPage />} />
-                    <Route path="/admin" element={<AdminPage />} />
-                    <Route path="/admin/categories" element={<CategoriesPage />} />
-                    <Route path="/admin/moderation" element={<ModerationPage />} />
-                </Routes>
-            </BrowserRouter>
-        </AuthProvider>
-    );
+  return (
+    <AuthProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/catalog" element={<CatalogPage />} />
+          <Route path="/catalog/:id" element={<ProductDetailPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/publish" element={<PublishPage />} />
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin/categories" element={<CategoriesPage />} />
+          <Route path="/admin/moderation" element={<ModerationPage />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthProvider>
+  );
 };
 
 export default App;
