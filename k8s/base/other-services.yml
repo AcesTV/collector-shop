@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: catalog-service
-  namespace: collector
 spec:
   replicas: 2
   selector:
@@ -16,7 +15,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: catalog-service
-          image: collector/catalog-service:1.0.0
+          image: collector-catalog-service
           ports: [{containerPort: 3002}]
           resources:
             requests:
@@ -37,14 +36,13 @@ spec:
 ---
 apiVersion: v1
 kind: Service
-metadata: {name: catalog-service, namespace: collector}
+metadata: {name: catalog-service}
 spec: {selector: {app: catalog-service}, ports: [{port: 3002, targetPort: 3002}]}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: order-service
-  namespace: collector
 spec:
   replicas: 2
   selector:
@@ -58,7 +56,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: order-service
-          image: collector/order-service:1.0.0
+          image: collector-order-service
           ports: [{containerPort: 3003}]
           resources:
             requests:
@@ -78,14 +76,13 @@ spec:
 ---
 apiVersion: v1
 kind: Service
-metadata: {name: order-service, namespace: collector}
+metadata: {name: order-service}
 spec: {selector: {app: order-service}, ports: [{port: 3003, targetPort: 3003}]}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: payment-service
-  namespace: collector
 spec:
   replicas: 1
   selector:
@@ -99,7 +96,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: payment-service
-          image: collector/payment-service:1.0.0
+          image: collector-payment-service
           ports: [{containerPort: 3004}]
           resources:
             requests:
@@ -119,14 +116,13 @@ spec:
 ---
 apiVersion: v1
 kind: Service
-metadata: {name: payment-service, namespace: collector}
+metadata: {name: payment-service}
 spec: {selector: {app: payment-service}, ports: [{port: 3004, targetPort: 3004}]}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: notification-service
-  namespace: collector
 spec:
   replicas: 1
   selector:
@@ -140,7 +136,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: notification-service
-          image: collector/notification-service:1.0.0
+          image: collector-notification-service
           ports: [{containerPort: 3005}]
           resources:
             requests:
@@ -160,14 +156,13 @@ spec:
 ---
 apiVersion: v1
 kind: Service
-metadata: {name: notification-service, namespace: collector}
+metadata: {name: notification-service}
 spec: {selector: {app: notification-service}, ports: [{port: 3005, targetPort: 3005}]}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: chat-service
-  namespace: collector
 spec:
   replicas: 1
   selector:
@@ -181,7 +176,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: chat-service
-          image: collector/chat-service:1.0.0
+          image: collector-chat-service
           ports: [{containerPort: 3006}]
           resources:
             requests:
@@ -200,14 +195,13 @@ spec:
 ---
 apiVersion: v1
 kind: Service
-metadata: {name: chat-service, namespace: collector}
+metadata: {name: chat-service}
 spec: {selector: {app: chat-service}, ports: [{port: 3006, targetPort: 3006}]}
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: fraud-service
-  namespace: collector
 spec:
   replicas: 1
   selector:
@@ -221,7 +215,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: fraud-service
-          image: collector/fraud-service:1.0.0
+          image: collector-fraud-service
           ports: [{containerPort: 3007}]
           resources:
             requests:
@@ -241,5 +235,5 @@ spec:
 ---
 apiVersion: v1
 kind: Service
-metadata: {name: fraud-service, namespace: collector}
+metadata: {name: fraud-service}
 spec: {selector: {app: fraud-service}, ports: [{port: 3007, targetPort: 3007}]}

@@ -1,0 +1,49 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - ../../base
+  - namespace.yml
+
+namespace: collector-staging
+
+images:
+  - name: collector-user-service
+    newName: ghcr.io/acestv/collector/collector-user-service
+    newTag: staging
+  - name: collector-catalog-service
+    newName: ghcr.io/acestv/collector/collector-catalog-service
+    newTag: staging
+  - name: collector-order-service
+    newName: ghcr.io/acestv/collector/collector-order-service
+    newTag: staging
+  - name: collector-payment-service
+    newName: ghcr.io/acestv/collector/collector-payment-service
+    newTag: staging
+  - name: collector-notification-service
+    newName: ghcr.io/acestv/collector/collector-notification-service
+    newTag: staging
+  - name: collector-chat-service
+    newName: ghcr.io/acestv/collector/collector-chat-service
+    newTag: staging
+  - name: collector-fraud-service
+    newName: ghcr.io/acestv/collector/collector-fraud-service
+    newTag: staging
+  - name: collector-frontend
+    newName: ghcr.io/acestv/collector/collector-frontend
+    newTag: staging
+  - name: collector-gateway
+    newName: ghcr.io/acestv/collector/collector-gateway
+    newTag: staging
+  - name: collector-keycloak
+    newName: ghcr.io/acestv/collector/collector-keycloak
+    newTag: staging
+
+patches:
+  - target:
+      kind: Ingress
+      name: collector-ingress
+    patch: |-
+      - op: replace
+        path: /spec/rules/0/host
+        value: staging.collector.local

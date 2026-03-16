@@ -24,32 +24,20 @@ eval $(minikube docker-env)
 
 # 4. Build all Docker images locally
 echo "🔨 Building Docker images..."
-docker build -t collector/gateway:latest ./gateway
-docker build -t collector/frontend:latest ./frontend
-docker build -t collector/keycloak:latest ./keycloak
-docker build -t collector/user-service:latest ./services/user-service
-docker build -t collector/catalog-service:latest ./services/catalog-service
-docker build -t collector/order-service:latest ./services/order-service
-docker build -t collector/payment-service:latest ./services/payment-service
-docker build -t collector/notification-service:latest ./services/notification-service
-docker build -t collector/chat-service:latest ./services/chat-service
-docker build -t collector/fraud-service:latest ./services/fraud-service
+docker build -t ghcr.io/acestv/collector/collector-gateway:develop ./gateway
+docker build -t ghcr.io/acestv/collector/collector-frontend:develop ./frontend
+docker build -t ghcr.io/acestv/collector/collector-keycloak:develop ./keycloak
+docker build -t ghcr.io/acestv/collector/collector-user-service:develop ./services/user-service
+docker build -t ghcr.io/acestv/collector/collector-catalog-service:develop ./services/catalog-service
+docker build -t ghcr.io/acestv/collector/collector-order-service:develop ./services/order-service
+docker build -t ghcr.io/acestv/collector/collector-payment-service:develop ./services/payment-service
+docker build -t ghcr.io/acestv/collector/collector-notification-service:develop ./services/notification-service
+docker build -t ghcr.io/acestv/collector/collector-chat-service:develop ./services/chat-service
+docker build -t ghcr.io/acestv/collector/collector-fraud-service:develop ./services/fraud-service
 
 # 5. Deploy to Kubernetes
-echo "☸️  Deploying to Kubernetes..."
-kubectl apply -f k8s/namespace.yml
-kubectl apply -f k8s/postgres/
-echo "⏳ Waiting for PostgreSQL..."
-kubectl rollout status deployment/postgres -n collector --timeout=120s
-
-kubectl apply -f k8s/keycloak/
-echo "⏳ Waiting for Keycloak..."
-kubectl rollout status deployment/keycloak -n collector --timeout=180s
-
-kubectl apply -f k8s/services/
-kubectl apply -f k8s/user-service/
-kubectl apply -f k8s/frontend/
-kubectl apply -f k8s/ingress.yml
+echo "☸️  Deploying to Kubernetes (Dev Overlay)..."
+kubectl apply -k k8s/overlays/dev
 
 # 6. Wait for all pods
 echo "⏳ Waiting for all pods to be ready..."

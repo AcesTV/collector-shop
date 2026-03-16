@@ -4,7 +4,7 @@ on:
   workflow_run:
     workflows: ["CI Pipeline"]
     types: [completed]
-    branches: [main]
+    branches: [main, develop, staging]
 
 env:
   REGISTRY: ghcr.io
@@ -25,31 +25,23 @@ jobs:
 
       - name: Deploy to Kubernetes
         run: |
-          # Apply namespace
-          kubectl apply -f k8s/namespace.yml
+          BRANCH=${{ github.event.workflow_run.head_branch }}
+          
+          if [[ "$BRANCH" == "main" ]]; then
+            OVERLAY="prod"
+          elif [[ "$BRANCH" == "staging" ]]; then
+            OVERLAY="staging"
+          else
+            OVERLAY="dev"
+          fi
+          
+          echo "🚀 Deploying to $OVERLAY environment (branch: $BRANCH)"
+          
+          # Apply Kustomize overlay
+          kubectl apply -k k8s/overlays/$OVERLAY
+          
+          # Wait for critical services
+          kubectl rollout status deployment/postgres -n collector-$OVERLAY --timeout=120s
+          kubectl rollout status deployment/keycloak -n collector-$OVERLAY --timeout=180s
 
-          # Apply infrastructure
-          kubectl apply -f k8s/postgres/
-          kubectl apply -f k8s/keycloak/
-
-          # Wait for infrastructure
-          kubectl rollout status deployment/postgres -n collector --timeout=120s
-          kubectl rollout status deployment/keycloak -n collector --timeout=180s
-
-          # Apply services
-          kubectl apply -f k8s/user-service/
-          kubectl apply -f k8s/catalog-service/
-          kubectl apply -f k8s/order-service/
-          kubectl apply -f k8s/payment-service/
-          kubectl apply -f k8s/notification-service/
-          kubectl apply -f k8s/chat-service/
-          kubectl apply -f k8s/fraud-service/
-
-          # Apply frontend and gateway
-          kubectl apply -f k8s/frontend/
-          kubectl apply -f k8s/gateway/
-
-          # Apply ingress
-          kubectl apply -f k8s/ingress.yml
-
-          echo "✅ Deployment complete!"
+          echo "✅ Deployment to $OVERLAY complete!"

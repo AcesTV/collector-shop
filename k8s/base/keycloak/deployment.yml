@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: keycloak
-  namespace: collector
 spec:
   replicas: 1
   selector:
@@ -16,7 +15,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: keycloak
-          image: collector/keycloak:1.0.0
+          image: collector-keycloak
           ports:
             - containerPort: 8080
           resources:
@@ -61,7 +60,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: keycloak
-  namespace: collector
 spec:
   selector:
     app: keycloak

@@ -28,7 +28,9 @@
       }
     ]
   },
-  "defaultRoles": ["buyer"],
+  "defaultRoles": [
+    "buyer"
+  ],
   "clients": [
     {
       "clientId": "collector-frontend",
@@ -44,16 +46,28 @@
       "redirectUris": [
         "http://localhost:3000/*",
         "http://localhost/*",
-        "http://localhost:5173/*"
+        "http://localhost:5173/*",
+        "http://collector.local/*",
+        "http://dev.collector.local/*",
+        "http://staging.collector.local/*",
+        "https://collector.local/*",
+        "https://dev.collector.local/*",
+        "https://staging.collector.local/*"
       ],
       "webOrigins": [
         "http://localhost:3000",
         "http://localhost",
-        "http://localhost:5173"
+        "http://localhost:5173",
+        "http://collector.local",
+        "http://dev.collector.local",
+        "http://staging.collector.local",
+        "https://collector.local",
+        "https://dev.collector.local",
+        "https://staging.collector.local"
       ],
       "attributes": {
         "pkce.code.challenge.method": "S256",
-        "post.logout.redirect.uris": "http://localhost:3000/*##http://localhost/*"
+        "post.logout.redirect.uris": "http://localhost:3000/*##http://localhost/*##http://collector.local/*##http://dev.collector.local/*##http://staging.collector.local/*"
       },
       "protocolMappers": [
         {
@@ -114,7 +128,11 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["admin", "buyer", "seller"]
+      "realmRoles": [
+        "admin",
+        "buyer",
+        "seller"
+      ]
     },
     {
       "username": "buyer@test.com",
@@ -130,7 +148,9 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["buyer"]
+      "realmRoles": [
+        "buyer"
+      ]
     },
     {
       "username": "seller@test.com",
@@ -146,16 +166,26 @@
           "temporary": false
         }
       ],
-      "realmRoles": ["buyer", "seller"]
+      "realmRoles": [
+        "buyer",
+        "seller"
+      ]
     }
   ],
   "scopeMappings": [
     {
       "client": "collector-frontend",
-      "roles": ["buyer", "seller", "admin"]
+      "roles": [
+        "buyer",
+        "seller",
+        "admin"
+      ]
     }
   ],
   "internationalizationEnabled": true,
-  "supportedLocales": ["en", "fr"],
+  "supportedLocales": [
+    "en",
+    "fr"
+  ],
   "defaultLocale": "fr"
 }

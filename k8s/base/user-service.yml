@@ -2,7 +2,6 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: services-config
-  namespace: collector
 data:
   DB_HOST: postgres
   DB_PORT: "5432"
@@ -16,7 +15,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: user-service
-  namespace: collector
 spec:
   replicas: 2
   selector:
@@ -30,7 +28,7 @@ spec:
       automountServiceAccountToken: false
       containers:
         - name: user-service
-          image: collector/user-service:1.0.0
+          image: collector-user-service
           ports:
             - containerPort: 3001
           resources:
@@ -71,7 +69,6 @@ apiVersion: v1
 kind: Service
 metadata:
   name: user-service
-  namespace: collector
 spec:
   selector:
     app: user-service
