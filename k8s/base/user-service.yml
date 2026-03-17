@@ -6,7 +6,7 @@ data:
   DB_HOST: postgres
   DB_PORT: "5432"
   DB_USER: collector
-  DB_NAME: collectorshop
+  DB_NAME: collector
   KEYCLOAK_URL: https://keycloak:8080
   KEYCLOAK_REALM: collector
   NODE_ENV: production
@@ -16,7 +16,7 @@ kind: Deployment
 metadata:
   name: user-service
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: user-service

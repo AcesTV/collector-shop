@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: db-init-job
+spec:
+  template:
+    spec:
+      containers:
+      - name: psql
+        image: postgres:16-alpine
+        envFrom:
+        - configMapRef:
+            name: postgres-config
+        - secretRef:
+            name: db-credentials
+        command: ["/bin/sh", "-c"]
+        args:
+        - |
+          psql -h postgres -U $POSTGRES_USER -d postgres -c "CREATE DATABASE keycloak;" || true;
+          psql -h postgres -U $POSTGRES_USER -d $POSTGRES_DB -c "
+            CREATE SCHEMA IF NOT EXISTS user_service;
+            CREATE SCHEMA IF NOT EXISTS catalog_service;
+            CREATE SCHEMA IF NOT EXISTS order_service;
+            CREATE SCHEMA IF NOT EXISTS payment_service;
+            CREATE SCHEMA IF NOT EXISTS notification_service;
+            CREATE SCHEMA IF NOT EXISTS chat_service;
+            CREATE SCHEMA IF NOT EXISTS fraud_service;
+            GRANT ALL PRIVILEGES ON SCHEMA user_service TO collector;
+            GRANT ALL PRIVILEGES ON SCHEMA catalog_service TO collector;
+            GRANT ALL PRIVILEGES ON SCHEMA order_service TO collector;
+            GRANT ALL PRIVILEGES ON SCHEMA payment_service TO collector;
+            GRANT ALL PRIVILEGES ON SCHEMA notification_service TO collector;
+            GRANT ALL PRIVILEGES ON SCHEMA chat_service TO collector;
+            GRANT ALL PRIVILEGES ON SCHEMA fraud_service TO collector;
+          "
+      restartPolicy: OnFailure
+  backoffLimit: 4

@@ -14,7 +14,7 @@ metadata:
   name: postgres-config
 data:
   POSTGRES_USER: collector
-  POSTGRES_DB: collectorshop
+  POSTGRES_DB: collector
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -104,12 +104,12 @@ spec:
               mountPath: /docker-entrypoint-initdb.d
           livenessProbe:
             exec:
-              command: ["pg_isready", "-U", "collector"]
+              command: ["pg_isready", "-U", "collector", "-d", "collector"]
             initialDelaySeconds: 15
             periodSeconds: 10
           readinessProbe:
             exec:
-              command: ["pg_isready", "-U", "collector"]
+              command: ["pg_isready", "-U", "collector", "-d", "collector"]
             initialDelaySeconds: 5
             periodSeconds: 5
       volumes:

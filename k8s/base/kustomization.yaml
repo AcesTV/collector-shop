@@ -3,6 +3,7 @@ kind: Kustomization
 
 resources:
   - postgres/deployment.yml
+  - postgres/init-job.yml
   - keycloak/deployment.yml
   - user-service.yml
   - other-services.yml
