@@ -138,6 +138,8 @@ jobs:
             image: collector-chat-service
           - service: services/fraud-service
             image: collector-fraud-service
+          - service: keycloak
+            image: collector-keycloak
 
     permissions:
       contents: read
