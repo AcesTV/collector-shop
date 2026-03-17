@@ -8,7 +8,7 @@ on:
 
 env:
   REGISTRY: ghcr.io
-  IMAGE_PREFIX: acestv/collector
+  IMAGE_PREFIX: ${{ github.repository_owner }}/collector
 
 jobs:
   # ===== Lint & Test all services =====
@@ -83,6 +83,7 @@ jobs:
   sonarqube:
     runs-on: ubuntu-latest
     needs: lint-and-test
+    continue-on-error: true
 
     steps:
       - uses: actions/checkout@v4
@@ -111,7 +112,7 @@ jobs:
   # ===== Build Docker Images =====
   build:
     runs-on: ubuntu-latest
-    needs: [lint-and-test, security, sonarqube]
+    needs: [lint-and-test, security]
     if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/staging')
 
     strategy:

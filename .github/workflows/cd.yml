@@ -18,14 +18,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup kubectl
-        uses: azure/setup-kubectl@v3
-        with:
-          version: 'latest'
-
-      - name: Deploy to Kubernetes
+      - name: Update image tags and Commit to Git
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           BRANCH=${{ github.event.workflow_run.head_branch }}
+          SHA=${{ github.event.workflow_run.head_sha }}
           
           if [[ "$BRANCH" == "main" ]]; then
             OVERLAY="prod"
@@ -35,13 +33,32 @@ jobs:
             OVERLAY="dev"
           fi
           
-          echo "🚀 Deploying to $OVERLAY environment (branch: $BRANCH)"
+          echo "🚀 Updating SHA to $SHA for $OVERLAY"
           
-          # Apply Kustomize overlay
-          kubectl apply -k k8s/overlays/$OVERLAY
+          # Setup Git
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Wait for critical services
-          kubectl rollout status deployment/postgres -n collector-$OVERLAY --timeout=120s
-          kubectl rollout status deployment/keycloak -n collector-$OVERLAY --timeout=180s
+          # Force checkout the branch that triggered the workflow
+          git fetch origin $BRANCH
+          git checkout $BRANCH
+          
+          # Update images using Kustomize
+          cd k8s/overlays/$OVERLAY
+          kustomize edit set image collector-user-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-user-service:$SHA
+          kustomize edit set image collector-catalog-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-catalog-service:$SHA
+          kustomize edit set image collector-order-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-order-service:$SHA
+          kustomize edit set image collector-payment-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-payment-service:$SHA
+          kustomize edit set image collector-notification-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-notification-service:$SHA
+          kustomize edit set image collector-chat-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-chat-service:$SHA
+          kustomize edit set image collector-fraud-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-fraud-service:$SHA
+          kustomize edit set image collector-frontend=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-frontend:$SHA
+          kustomize edit set image collector-gateway=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-gateway:$SHA
+          
+          # Commit and Push
+          git add kustomization.yaml
+          git commit -m "chore(gitops): update images for $OVERLAY to $SHA [skip ci]" || echo "No changes to commit"
+          git push origin $BRANCH
 
-          echo "✅ Deployment to $OVERLAY complete!"
+      - name: Notify ArgoCD (Optional)
+        run: echo "ArgoCD will automatically sync the changes from Git."
