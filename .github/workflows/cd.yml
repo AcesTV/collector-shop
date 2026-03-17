@@ -33,6 +33,9 @@ jobs:
             OVERLAY="dev"
           fi
           
+          # Force lowercase for GHCR
+          IMAGE_PREFIX=$(echo "${{ github.repository_owner }}/collector" | tr '[:upper:]' '[:lower:]')
+          
           echo "🚀 Updating SHA to $SHA for $OVERLAY"
           
           # Setup Git
@@ -45,15 +48,15 @@ jobs:
           
           # Update images using Kustomize
           cd k8s/overlays/$OVERLAY
-          kustomize edit set image collector-user-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-user-service:$SHA
-          kustomize edit set image collector-catalog-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-catalog-service:$SHA
-          kustomize edit set image collector-order-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-order-service:$SHA
-          kustomize edit set image collector-payment-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-payment-service:$SHA
-          kustomize edit set image collector-notification-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-notification-service:$SHA
-          kustomize edit set image collector-chat-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-chat-service:$SHA
-          kustomize edit set image collector-fraud-service=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-fraud-service:$SHA
-          kustomize edit set image collector-frontend=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-frontend:$SHA
-          kustomize edit set image collector-gateway=${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/collector-gateway:$SHA
+          kustomize edit set image collector-user-service=${{ env.REGISTRY }}/$IMAGE_PREFIX/collector-user-service:$SHA
+          kustomize edit set image collector-catalog-service=${{ env.REGISTRY }}/$IMAGE_PREFIX/collector-catalog-service:$SHA
+          kustomize edit set image collector-order-service=${{ env.REGISTRY }}/$IMAGE_PREFIX/collector-order-service:$SHA
+          kustomize edit set image collector-payment-service=${{ env.REGISTRY }}/$IMAGE_PREFIX/collector-payment-service:$SHA
+          kustomize edit set image collector-notification-service=${{ env.REGISTRY }}/$IMAGE_PREFIX/collector-notification-service:$SHA
+          kustomize edit set image collector-chat-service=${{ env.REGISTRY }}/$IMAGE_PREFIX/collector-chat-service:$SHA
+          kustomize edit set image collector-fraud-service=${{ env.REGISTRY }}/$IMAGE_PREFIX/collector-fraud-service:$SHA
+          kustomize edit set image collector-frontend=${{ env.REGISTRY }}/$IMAGE_PREFIX/collector-frontend:$SHA
+          kustomize edit set image collector-gateway=${{ env.REGISTRY }}/$IMAGE_PREFIX/collector-gateway:$SHA
           
           # Commit and Push
           git add kustomization.yaml
