@@ -2,48 +2,48 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base
-  - namespace.yml
+- ../../base
+- namespace.yml
 
 namespace: collector-dev
 
 images:
-  - name: collector-user-service
-    newName: ghcr.io/acestv/collector/collector-user-service
-    newTag: develop
-  - name: collector-catalog-service
-    newName: ghcr.io/acestv/collector/collector-catalog-service
-    newTag: develop
-  - name: collector-order-service
-    newName: ghcr.io/acestv/collector/collector-order-service
-    newTag: develop
-  - name: collector-payment-service
-    newName: ghcr.io/acestv/collector/collector-payment-service
-    newTag: develop
-  - name: collector-notification-service
-    newName: ghcr.io/acestv/collector/collector-notification-service
-    newTag: develop
-  - name: collector-chat-service
-    newName: ghcr.io/acestv/collector/collector-chat-service
-    newTag: develop
-  - name: collector-fraud-service
-    newName: ghcr.io/acestv/collector/collector-fraud-service
-    newTag: develop
-  - name: collector-frontend
-    newName: ghcr.io/acestv/collector/collector-frontend
-    newTag: develop
-  - name: collector-gateway
-    newName: ghcr.io/acestv/collector/collector-gateway
-    newTag: develop
-  - name: collector-keycloak
-    newName: ghcr.io/acestv/collector/collector-keycloak
-    newTag: develop
+- name: collector-catalog-service
+  newName: ghcr.io/acestv/collector/collector-catalog-service
+  newTag: 1150419d78d250dedd5e030634208e6dcea6204a
+- name: collector-chat-service
+  newName: ghcr.io/acestv/collector/collector-chat-service
+  newTag: 1150419d78d250dedd5e030634208e6dcea6204a
+- name: collector-fraud-service
+  newName: ghcr.io/acestv/collector/collector-fraud-service
+  newTag: 1150419d78d250dedd5e030634208e6dcea6204a
+- name: collector-frontend
+  newName: ghcr.io/acestv/collector/collector-frontend
+  newTag: 1150419d78d250dedd5e030634208e6dcea6204a
+- name: collector-gateway
+  newName: ghcr.io/acestv/collector/collector-gateway
+  newTag: 1150419d78d250dedd5e030634208e6dcea6204a
+- name: collector-keycloak
+  newName: ghcr.io/acestv/collector/collector-keycloak
+  newTag: develop
+- name: collector-notification-service
+  newName: ghcr.io/acestv/collector/collector-notification-service
+  newTag: 1150419d78d250dedd5e030634208e6dcea6204a
+- name: collector-order-service
+  newName: ghcr.io/acestv/collector/collector-order-service
+  newTag: 1150419d78d250dedd5e030634208e6dcea6204a
+- name: collector-payment-service
+  newName: ghcr.io/acestv/collector/collector-payment-service
+  newTag: 1150419d78d250dedd5e030634208e6dcea6204a
+- name: collector-user-service
+  newName: ghcr.io/acestv/collector/collector-user-service
+  newTag: 1150419d78d250dedd5e030634208e6dcea6204a
 
 patches:
-  - target:
-      kind: Ingress
-      name: collector-ingress
-    patch: |-
-      - op: replace
-        path: /spec/rules/0/host
-        value: dev.collector.local
+- patch: |-
+    - op: replace
+      path: /spec/rules/0/host
+      value: dev.collector.local
+  target:
+    kind: Ingress
+    name: collector-ingress
