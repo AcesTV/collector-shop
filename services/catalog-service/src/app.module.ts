@@ -11,6 +11,7 @@ import { CategoryModule } from './category/category.module';
 import { ShopModule } from './shop/shop.module';
 import { KeycloakStrategy } from './auth/keycloak.strategy';
 import { MetricsMiddleware } from './metrics.middleware';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -36,6 +37,7 @@ import { MetricsMiddleware } from './metrics.middleware';
     CategoryModule,
     ShopModule,
   ],
+  controllers: [AppController],
   providers: [
     KeycloakStrategy,
     makeHistogramProvider({
