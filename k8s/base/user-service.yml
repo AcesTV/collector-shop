@@ -7,7 +7,7 @@ data:
   DB_PORT: "5432"
   DB_USER: collector
   DB_NAME: collector
-  KEYCLOAK_URL: https://keycloak:8080
+  KEYCLOAK_URL: http://keycloak:8080/auth
   KEYCLOAK_REALM: collector
   NODE_ENV: production
 ---
