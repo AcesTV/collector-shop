@@ -24,7 +24,9 @@ test.describe('ProductDetailPage', () => {
       await expect(
         page.getByRole('heading', { name: product.title }),
       ).toBeVisible();
-      await expect(page.getByText(`${Number(product.price).toFixed(2)} €`)).toBeVisible();
+      await expect(
+        page.getByText(`${Number(product.price).toFixed(2)} €`),
+      ).toBeVisible();
       await expect(page.getByText(product.description)).toBeVisible();
       await expect(page.getByText(product.category.name)).toBeVisible();
       await expect(page.getByText(`État : ${product.condition}`)).toBeVisible();
@@ -35,7 +37,9 @@ test.describe('ProductDetailPage', () => {
       await page.goto(`/catalog/${product.id}`);
 
       await expect(
-        page.getByText(`${Number(product.shippingCost).toFixed(2)} € de livraison`),
+        page.getByText(
+          `${Number(product.shippingCost).toFixed(2)} € de livraison`,
+        ),
       ).toBeVisible();
     });
 
@@ -48,9 +52,7 @@ test.describe('ProductDetailPage', () => {
       await expect(
         page.getByRole('button', { name: 'Se connecter pour acheter' }),
       ).toBeVisible();
-      await expect(
-        page.getByRole('button', { name: /Acheter/ }),
-      ).toBeHidden();
+      await expect(page.getByRole('button', { name: /Acheter/ })).toBeHidden();
     });
   });
 
@@ -61,9 +63,7 @@ test.describe('ProductDetailPage', () => {
       await mockProductAPI(page);
       await page.goto(`/catalog/${product.id}`);
 
-      await expect(
-        page.getByRole('button', { name: /Acheter/ }),
-      ).toBeVisible();
+      await expect(page.getByRole('button', { name: /Acheter/ })).toBeVisible();
       await expect(
         page.getByRole('button', { name: /Contacter le vendeur/ }),
       ).toBeVisible();

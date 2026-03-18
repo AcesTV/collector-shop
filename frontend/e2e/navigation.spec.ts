@@ -36,9 +36,7 @@ test.describe('Navigation & Header', () => {
       await mockCatalogAPI(page);
       await page.goto('/');
 
-      await page
-        .getByRole('link', { name: 'Catalogue', exact: true })
-        .click();
+      await page.getByRole('link', { name: 'Catalogue', exact: true }).click();
       await expect(page).toHaveURL(/\/catalog/);
     });
 
@@ -60,9 +58,7 @@ test.describe('Navigation & Header', () => {
     }) => {
       await page.goto('/');
 
-      await expect(
-        page.getByRole('link', { name: 'Mon Espace' }),
-      ).toBeHidden();
+      await expect(page.getByRole('link', { name: 'Mon Espace' })).toBeHidden();
       await expect(
         page.getByRole('button', { name: 'Déconnexion' }),
       ).toBeHidden();
@@ -89,9 +85,7 @@ test.describe('Navigation & Header', () => {
     }) => {
       await page.goto('/');
 
-      await expect(
-        page.getByRole('link', { name: 'Admin' }),
-      ).toBeHidden();
+      await expect(page.getByRole('link', { name: 'Admin' })).toBeHidden();
     });
 
     test('does not show Connexion/Inscription buttons', async ({
@@ -112,9 +106,7 @@ test.describe('Navigation & Header', () => {
     test('shows "Admin" link', async ({ adminPage: page }) => {
       await page.goto('/');
 
-      await expect(
-        page.getByRole('link', { name: 'Admin' }),
-      ).toBeVisible();
+      await expect(page.getByRole('link', { name: 'Admin' })).toBeVisible();
     });
   });
 });

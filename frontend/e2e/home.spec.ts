@@ -1,5 +1,4 @@
 import { test, expect } from './fixtures/auth';
-import { mockProducts, mockCategories } from './mocks/catalog';
 
 test.describe('HomePage', () => {
   test.describe('unauthenticated', () => {
@@ -16,9 +15,7 @@ test.describe('HomePage', () => {
 
       await page.goto('/');
 
-      await expect(
-        page.getByText('Vos trésors de collection'),
-      ).toBeVisible();
+      await expect(page.getByText('Vos trésors de collection')).toBeVisible();
       await expect(
         page.getByRole('link', { name: 'Explorer le catalogue' }),
       ).toBeVisible();
@@ -67,9 +64,7 @@ test.describe('HomePage', () => {
     }) => {
       await page.goto('/');
 
-      await expect(
-        page.getByText('Vos trésors de collection'),
-      ).toBeVisible();
+      await expect(page.getByText('Vos trésors de collection')).toBeVisible();
       await expect(
         page.getByRole('button', { name: 'Devenir vendeur' }),
       ).toBeHidden();

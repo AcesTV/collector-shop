@@ -45,7 +45,9 @@ test.describe('CatalogPage', () => {
     await mockCatalogAPI(page);
     await page.goto('/catalog');
 
-    await expect(page.getByRole('heading', { name: 'Catalogue' })).toBeVisible();
+    await expect(
+      page.getByRole('heading', { name: 'Catalogue' }),
+    ).toBeVisible();
 
     for (const product of mockProducts) {
       await expect(page.getByText(product.title)).toBeVisible();
@@ -67,7 +69,9 @@ test.describe('CatalogPage', () => {
     await mockCatalogAPI(page);
     await page.goto('/catalog');
 
-    await expect(page.getByText('Figurine Star Wars Darth Vader')).toBeVisible();
+    await expect(
+      page.getByText('Figurine Star Wars Darth Vader'),
+    ).toBeVisible();
 
     const searchInput = page.getByPlaceholder('Rechercher un article...');
     await searchInput.fill('Pink Floyd');
