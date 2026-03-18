@@ -10,34 +10,34 @@ namespace: collector-staging
 images:
 - name: collector-catalog-service
   newName: ghcr.io/acestv/collector/collector-catalog-service
-  newTag: 8251051212686c8531d21d28b30dcc301b5af183
+  newTag: 262323b9f6a0d4eaf9e287124cffa94cac40acf9
 - name: collector-chat-service
   newName: ghcr.io/acestv/collector/collector-chat-service
-  newTag: 8251051212686c8531d21d28b30dcc301b5af183
+  newTag: 262323b9f6a0d4eaf9e287124cffa94cac40acf9
 - name: collector-fraud-service
   newName: ghcr.io/acestv/collector/collector-fraud-service
-  newTag: 8251051212686c8531d21d28b30dcc301b5af183
+  newTag: 262323b9f6a0d4eaf9e287124cffa94cac40acf9
 - name: collector-frontend
   newName: ghcr.io/acestv/collector/collector-frontend
-  newTag: 8251051212686c8531d21d28b30dcc301b5af183
+  newTag: 262323b9f6a0d4eaf9e287124cffa94cac40acf9
 - name: collector-gateway
   newName: ghcr.io/acestv/collector/collector-gateway
-  newTag: 8251051212686c8531d21d28b30dcc301b5af183
+  newTag: 262323b9f6a0d4eaf9e287124cffa94cac40acf9
 - name: collector-keycloak
   newName: ghcr.io/acestv/collector/collector-keycloak
   newTag: staging
 - name: collector-notification-service
   newName: ghcr.io/acestv/collector/collector-notification-service
-  newTag: 8251051212686c8531d21d28b30dcc301b5af183
+  newTag: 262323b9f6a0d4eaf9e287124cffa94cac40acf9
 - name: collector-order-service
   newName: ghcr.io/acestv/collector/collector-order-service
-  newTag: 8251051212686c8531d21d28b30dcc301b5af183
+  newTag: 262323b9f6a0d4eaf9e287124cffa94cac40acf9
 - name: collector-payment-service
   newName: ghcr.io/acestv/collector/collector-payment-service
-  newTag: 8251051212686c8531d21d28b30dcc301b5af183
+  newTag: 262323b9f6a0d4eaf9e287124cffa94cac40acf9
 - name: collector-user-service
   newName: ghcr.io/acestv/collector/collector-user-service
-  newTag: 8251051212686c8531d21d28b30dcc301b5af183
+  newTag: 262323b9f6a0d4eaf9e287124cffa94cac40acf9
 
 patches:
 - patch: |-
