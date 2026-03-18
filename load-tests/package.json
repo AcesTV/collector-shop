@@ -1,0 +1,22 @@
+{
+  "name": "collector-load-tests",
+  "version": "1.0.0",
+  "description": "Tests de charge k6 pour CollectorShop",
+  "scripts": {
+    "test:smoke:health": "k6 run --env LOAD_PROFILE=smoke scenarios/health-checks.js",
+    "test:smoke:catalog": "k6 run --env LOAD_PROFILE=smoke scenarios/catalog-browsing.js",
+    "test:smoke:orders": "k6 run --env LOAD_PROFILE=smoke scenarios/order-flow.js",
+    "test:smoke:profile": "k6 run --env LOAD_PROFILE=smoke scenarios/user-profile.js",
+    "test:smoke:notifications": "k6 run --env LOAD_PROFILE=smoke scenarios/notifications.js",
+    "test:load:health": "k6 run --env LOAD_PROFILE=load scenarios/health-checks.js",
+    "test:load:catalog": "k6 run --env LOAD_PROFILE=load scenarios/catalog-browsing.js",
+    "test:load:orders": "k6 run --env LOAD_PROFILE=load scenarios/order-flow.js",
+    "test:load:profile": "k6 run --env LOAD_PROFILE=load scenarios/user-profile.js",
+    "test:load:notifications": "k6 run --env LOAD_PROFILE=load scenarios/notifications.js",
+    "test:stress:catalog": "k6 run --env LOAD_PROFILE=stress scenarios/catalog-browsing.js",
+    "test:stress:health": "k6 run --env LOAD_PROFILE=stress scenarios/health-checks.js",
+    "test:spike:catalog": "k6 run --env LOAD_PROFILE=spike scenarios/catalog-browsing.js",
+    "test:full": "k6 run scenarios/full-load.js",
+    "test:full:json": "k6 run --out json=results/full-load.json scenarios/full-load.js"
+  }
+}
