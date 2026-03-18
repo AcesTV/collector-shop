@@ -30,10 +30,7 @@ spec:
             - name: KEYCLOAK_ADMIN
               value: admin
             - name: KEYCLOAK_ADMIN_PASSWORD
-              valueFrom:
-                secretKeyRef:
-                  name: db-credentials
-                  key: POSTGRES_PASSWORD
+              value: "admin"
             - name: KC_DB
               value: postgres
             - name: KC_DB_URL

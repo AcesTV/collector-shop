@@ -132,7 +132,12 @@
         "admin",
         "buyer",
         "seller"
-      ]
+      ],
+      "clientRoles": {
+        "realm-management": [
+          "realm-admin"
+        ]
+      }
     },
     {
       "username": "buyer@test.com",
