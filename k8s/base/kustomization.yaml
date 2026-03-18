@@ -9,3 +9,5 @@ resources:
   - other-services.yml
   - frontend/deployment.yml
   - ingress.yml
+  - monitoring/prometheus.yml
+  - monitoring/grafana.yml
