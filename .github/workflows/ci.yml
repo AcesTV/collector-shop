@@ -155,7 +155,8 @@ jobs:
 
       - name: Install k6
         run: |
-          curl -sL https://github.com/grafana/k6/releases/latest/download/k6-latest-linux-amd64.tar.gz | tar xz
+          K6_VERSION=$(curl -sI https://github.com/grafana/k6/releases/latest | grep -i ^location: | sed 's|.*/v||' | tr -d '\r')
+          curl -sL "https://github.com/grafana/k6/releases/download/v${K6_VERSION}/k6-v${K6_VERSION}-linux-amd64.tar.gz" | tar xz
           sudo mv k6-*/k6 /usr/local/bin/
           k6 version
 
