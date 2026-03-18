@@ -47,6 +47,10 @@ spec:
                   key: DB_PASSWORD
             - name: KC_HOSTNAME_STRICT
               value: "false"
+            - name: KC_PROXY
+              value: "edge"
+            - name: KC_HTTP_RELATIVE_PATH
+              value: "/auth"
             - name: KC_HTTP_ENABLED
               value: "true"
           readinessProbe:

@@ -38,6 +38,7 @@ services:
       KC_DB_PASSWORD: ${POSTGRES_PASSWORD}
       KC_HOSTNAME_STRICT: "false"
       KC_PROXY: edge
+      KC_HTTP_RELATIVE_PATH: /auth
       KC_HTTP_ENABLED: "true"
       KC_HEALTH_ENABLED: "true"
     ports:
