@@ -36,6 +36,9 @@ yarn-error.log*
 # Coverage & Tests
 coverage/
 .nyc_output/
+test-results/
+playwright-report/
+blob-report/
 
 # Package lock files (optionnel - décommente si tu veux les garder)
 # package-lock.json
