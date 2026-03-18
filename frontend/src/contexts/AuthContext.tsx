@@ -78,7 +78,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   const login = useCallback(() => keycloak.login(), []);
   const logout = useCallback(
-    () => keycloak.logout({ redirectUri: globalThis.location.origin }),
+    () => keycloak.logout({ redirectUri: globalThis.location.origin + '/' }),
     [],
   );
   const register = useCallback(() => keycloak.register(), []);

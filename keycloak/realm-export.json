@@ -29,7 +29,8 @@
     ]
   },
   "defaultRoles": [
-    "buyer"
+    "buyer",
+    "seller"
   ],
   "clients": [
     {
@@ -52,7 +53,13 @@
         "http://staging.collector.local/*",
         "https://collector.local/*",
         "https://dev.collector.local/*",
-        "https://staging.collector.local/*"
+        "https://staging.collector.local/*",
+        "https://collector.local/",
+        "https://dev.collector.local/",
+        "https://staging.collector.local/",
+        "http://collector.local/",
+        "http://dev.collector.local/",
+        "http://staging.collector.local/"
       ],
       "webOrigins": [
         "http://localhost:3000",
@@ -67,7 +74,7 @@
       ],
       "attributes": {
         "pkce.code.challenge.method": "S256",
-        "post.logout.redirect.uris": "http://localhost:3000/*##http://localhost/*##http://collector.local/*##http://dev.collector.local/*##http://staging.collector.local/*##https://localhost:3000/*##https://localhost/*##https://collector.local/*##https://dev.collector.local/*##https://staging.collector.local/*##https://collector.local##https://dev.collector.local##https://staging.collector.local##http://collector.local##http://dev.collector.local##http://staging.collector.local"
+        "post.logout.redirect.uris": "http://localhost:3000/*##http://localhost/*##http://collector.local/*##http://dev.collector.local/*##http://staging.collector.local/*##https://localhost:3000/*##https://localhost/*##https://collector.local/*##https://dev.collector.local/*##https://staging.collector.local/*##https://collector.local/##https://dev.collector.local/##https://staging.collector.local/##http://collector.local/##http://dev.collector.local/##http://staging.collector.local/##https://collector.local##https://dev.collector.local##https://staging.collector.local##http://collector.local##http://dev.collector.local##http://staging.collector.local"
       },
       "protocolMappers": [
         {
