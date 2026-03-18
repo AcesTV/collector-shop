@@ -7,7 +7,7 @@ COPY src/ ./src/
 COPY index.html tsconfig*.json vite.config.ts ./
 RUN npm run build
 
-FROM nginx:1.25-alpine
+FROM nginx:stable-alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 RUN chown -R nginx:nginx /usr/share/nginx/html && \
