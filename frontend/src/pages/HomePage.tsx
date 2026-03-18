@@ -35,7 +35,7 @@ const HomePage: React.FC = () => {
 
         <section style={{ padding: '48px 0' }}>
           <h2 style={{ textAlign: 'center', marginBottom: '32px' }}>
-            Pourquoi Collector.shop ?
+            Pourquoi choisir Collector.shop ?
           </h2>
           <div className="product-grid">
             <div className="card">
