@@ -10,34 +10,34 @@ namespace: collector-prod
 images:
 - name: collector-catalog-service
   newName: ghcr.io/acestv/collector/collector-catalog-service
-  newTag: 27cbcf6b92251887594f5020d6a988519c8b9813
+  newTag: cb527e434224a4058caf952112623ee75c6add8f
 - name: collector-chat-service
   newName: ghcr.io/acestv/collector/collector-chat-service
-  newTag: 27cbcf6b92251887594f5020d6a988519c8b9813
+  newTag: cb527e434224a4058caf952112623ee75c6add8f
 - name: collector-fraud-service
   newName: ghcr.io/acestv/collector/collector-fraud-service
-  newTag: 27cbcf6b92251887594f5020d6a988519c8b9813
+  newTag: cb527e434224a4058caf952112623ee75c6add8f
 - name: collector-frontend
   newName: ghcr.io/acestv/collector/collector-frontend
-  newTag: 27cbcf6b92251887594f5020d6a988519c8b9813
+  newTag: cb527e434224a4058caf952112623ee75c6add8f
 - name: collector-gateway
   newName: ghcr.io/acestv/collector/collector-gateway
-  newTag: 27cbcf6b92251887594f5020d6a988519c8b9813
+  newTag: cb527e434224a4058caf952112623ee75c6add8f
 - name: collector-keycloak
   newName: ghcr.io/acestv/collector/collector-keycloak
   newTag: main
 - name: collector-notification-service
   newName: ghcr.io/acestv/collector/collector-notification-service
-  newTag: 27cbcf6b92251887594f5020d6a988519c8b9813
+  newTag: cb527e434224a4058caf952112623ee75c6add8f
 - name: collector-order-service
   newName: ghcr.io/acestv/collector/collector-order-service
-  newTag: 27cbcf6b92251887594f5020d6a988519c8b9813
+  newTag: cb527e434224a4058caf952112623ee75c6add8f
 - name: collector-payment-service
   newName: ghcr.io/acestv/collector/collector-payment-service
-  newTag: 27cbcf6b92251887594f5020d6a988519c8b9813
+  newTag: cb527e434224a4058caf952112623ee75c6add8f
 - name: collector-user-service
   newName: ghcr.io/acestv/collector/collector-user-service
-  newTag: 27cbcf6b92251887594f5020d6a988519c8b9813
+  newTag: cb527e434224a4058caf952112623ee75c6add8f
 
 # No ingress host patch needed if base uses collector.local, or we can patch it explicitly
 patches:
